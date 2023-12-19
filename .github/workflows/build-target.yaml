@@ -13,10 +13,12 @@ jobs:
             - name: checkout
               uses: actions/checkout@v4
               with:
+                sparse-checkout: solutions
                 fetch-depth: 1     
-            - name: build
+            - name: build solutions
               run: |
                 TOOLCHAIN=$(dirname $(find /opt/arm*/bin -name 'arm-none-eabi-gcc'))
                 PATH="$TOOLCHAIN:$PATH"
+                cp -r /home/feabhas/projects/cmake-target .
                 bash ./build.sh
 
