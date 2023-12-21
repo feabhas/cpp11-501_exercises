@@ -4,6 +4,17 @@ Exercise solutions and cmake projects for:
 
    * C++11-501 Modern C++ for Embedded Systems (C++11/14/17)
 
+**Contents**
+- [Modern C++ for Embedded Systems (C++11/14/17) Exercises](#modern-c-for-embedded-systems-c111417-exercises)
+- [Folder structure](#folder-structure)
+  - [Solutions](#solutions)
+  - [Workspace](#workspace)
+- [Build Toolchain](#build-toolchain)
+  - [Build the application](#build-the-application)
+  - [Visual Studio shortcuts](#visual-studio-shortcuts)
+  - [Command line builds](#command-line-builds)
+  - [Building an exercise solution](#building-an-exercise-solution)
+- [Disclaimer](#disclaimer)
 
 # Folder structure
 
