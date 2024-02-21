@@ -7,7 +7,7 @@
 #include <array>
 #include <cstdint>
 
-constexpr uint32_t GPIOD_base { 0x4002'0C00u };
+constexpr uintptr_t GPIOD_base { 0x4002'0C00u };
 
 static volatile uint32_t *const GPIOD_moder = reinterpret_cast<uint32_t*>(GPIOD_base);
 static volatile uint32_t *const GPIOD_odr = reinterpret_cast<uint32_t*>(GPIOD_base + 0x14u);
