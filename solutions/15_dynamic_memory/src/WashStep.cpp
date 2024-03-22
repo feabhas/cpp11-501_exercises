@@ -7,16 +7,12 @@
 
 namespace WMS {
 
-static constexpr uint32_t on_time {250};
-static constexpr uint32_t off_time {250};
+static constexpr uint32_t on_time{250};
+static constexpr uint32_t off_time{250};
 
-WashStep::WashStep(Type step_type, uint32_t step_length, Devices::Motor& motor)
-: MotorisedStep {step_type, step_length, motor}
-{}
+WashStep::WashStep(Type step_type, uint32_t step_length, Devices::Motor &motor)
+    : MotorisedStep{step_type, step_length, motor} {}
 
-void WashStep::run()
-{
-  activate_motor(on_time, off_time);
-}
+void WashStep::run() { activate_motor(on_time, off_time); }
 
-} // namespace
+} // namespace WMS

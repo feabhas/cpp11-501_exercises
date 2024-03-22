@@ -9,7 +9,7 @@
 #include "MotorisedStep.h"
 
 namespace Devices {
-  class Motor;
+class Motor;
 }
 
 namespace WMS {
@@ -17,16 +17,13 @@ namespace WMS {
 class RinseStep : public MotorisedStep {
 public:
   ~RinseStep() override = default;
-  explicit RinseStep(Type step_type, uint32_t step_length, Devices::Motor& motor)
-  : MotorisedStep {step_type, step_length, motor}
-  {}
+  explicit RinseStep(Type step_type, uint32_t step_length,
+                     Devices::Motor &motor)
+      : MotorisedStep{step_type, step_length, motor} {}
 
-  void run() override
-  {
-    activate_motor(500, 500);
-  }
+  void run() override { activate_motor(500, 500); }
 };
 
-} // namespace
+} // namespace WMS
 
 #endif // WASHSTEP_H_

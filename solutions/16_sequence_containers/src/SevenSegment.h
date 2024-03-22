@@ -13,7 +13,7 @@ class GPIO;
 
 class SevenSegment : public OutputDevice {
 public:
-  SevenSegment(GPIO& gpio);
+  SevenSegment(GPIO &gpio);
   ~SevenSegment();
 
 protected:
@@ -21,9 +21,9 @@ protected:
   void blank();
 
 private:
-  GPIO* port;
+  GPIO *port;
 };
 
-} // namespace WMS
+} // namespace Devices
 
 #endif // SEVENSEGMENT_H_

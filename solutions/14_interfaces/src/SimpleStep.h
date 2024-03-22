@@ -6,8 +6,8 @@
 #ifndef SIMPLESTEP_H
 #define SIMPLESTEP_H
 
-#include <cstdint>
 #include "Step.h"
+#include <cstdint>
 
 namespace WMS {
 
@@ -19,6 +19,6 @@ public:
   void run() override;
 };
 
-} // namespace
+} // namespace WMS
 
 #endif // SIMPLESTEP_H_

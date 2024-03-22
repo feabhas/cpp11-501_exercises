@@ -6,9 +6,8 @@
 #ifndef WASHPROGRAMME_H
 #define WASHPROGRAMME_H
 
-#include <array>
 #include "Step.h"
-#include "SevenSegment.h"
+#include <array>
 
 namespace Devices {
 class SevenSegment;
@@ -19,21 +18,21 @@ namespace WMS {
 class WashProgramme {
 public:
   WashProgramme() = default;
-  bool add(Step& step);
+  bool add(Step &step);
   void run();
 
 private:
-  friend void connect(WashProgramme& wash, Devices::SevenSegment& sseg);
+  friend void connect(WashProgramme &wash, Devices::SevenSegment &sseg);
 
-  constexpr static unsigned wash_size {12};
-  using Container = std::array<Step*, wash_size>;
+  constexpr static unsigned wash_size{16};
+  using Container = std::array<Step, wash_size>;
 
-  Container steps {};
-  Container::iterator next {std::begin(steps)};
+  Container steps{};
+  Container::iterator next{std::begin(steps)};
 
-  Devices::SevenSegment* display;
+  Devices::SevenSegment *display{};
 };
 
-} // namespace Application
+} // namespace WMS
 
 #endif // WASHPROGRAMME_H_

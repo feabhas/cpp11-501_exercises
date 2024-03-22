@@ -15,6 +15,6 @@ public:
   virtual void display(unsigned value) = 0;
 };
 
-}; // namespace
+}; // namespace Devices
 
 #endif // OUTPUTDEVICE_H_

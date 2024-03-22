@@ -6,8 +6,8 @@
 #ifndef GPIO_H
 #define GPIO_H
 
-#include <cstdint>
 #include "Peripherals.h"
+#include <cstdint>
 
 namespace Devices {
 
@@ -22,9 +22,9 @@ public:
   void clear(uint32_t pattern);
 
 private:
-  volatile struct Registers* port;
+  volatile struct Registers *port;
 };
 
-} // namespace
+} // namespace Devices
 
 #endif // GPIO_H_

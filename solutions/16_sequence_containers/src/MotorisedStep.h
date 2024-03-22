@@ -9,7 +9,7 @@
 #include "Step.h"
 
 namespace Devices {
-  class Motor;
+class Motor;
 }
 
 namespace WMS {
@@ -17,7 +17,7 @@ namespace WMS {
 class MotorisedStep : public Step {
 public:
   explicit MotorisedStep(Type step_type, uint32_t step_length,
-                          Devices::Motor& motor);
+                         Devices::Motor &motor);
   ~MotorisedStep() override;
 
   void run() override = 0;
@@ -26,9 +26,9 @@ protected:
   void activate_motor(uint32_t on_time, uint32_t off_time);
 
 private:
-  Devices::Motor& motor;
+  Devices::Motor *motor;
 };
 
-} // namespace
+} // namespace WMS
 
 #endif // MOTORISED_STEP_H_

@@ -24,35 +24,30 @@ struct Registers {
 static_assert(sizeof(Registers) == 24);
 
 GPIO::GPIO(STM32F407::AHB1_Device device)
-    : port {reinterpret_cast<Registers*>(device_base_address(device))}
-{
+    : port{reinterpret_cast<Registers *>(device_base_address(device))} {
   STM32F407::enable(device);
 }
 
-void GPIO::set_input(unsigned pin)
-{
+void GPIO::set_input(unsigned pin) {
   auto moder = port->mode;
   moder &= ~(0b11u << pin * 2);
   port->mode = moder;
 }
 
-void GPIO::set_output(unsigned pin)
-{
+void GPIO::set_output(unsigned pin) {
   auto moder = port->mode;
   moder &= ~(0b11u << pin * 2);
   moder |= (0b01u << pin * 2);
   port->mode = moder;
 }
 
-void GPIO::set(uint32_t pattern)
-{
+void GPIO::set(uint32_t pattern) {
   uint32_t value = port->output;
   value |= pattern;
   port->output = value;
 }
 
-void GPIO::clear(uint32_t pattern)
-{
+void GPIO::clear(uint32_t pattern) {
   uint32_t value = port->output;
   value &= ~pattern;
   port->output = value;
@@ -62,4 +57,4 @@ uint32_t GPIO::mode() const { return port->mode; }
 
 uint32_t GPIO::read() const { return port->input; }
 
-} // namespace STM32F4xx
+} // namespace Devices

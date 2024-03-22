@@ -2,37 +2,34 @@
 // See project README.md for disclaimer and additional information.
 // Feabhas Ltd
 
-#include <iostream>
-#include <iomanip>
-#include <iostream>
 #include "WashProgramme.h"
 #include "SevenSegment.h"
+#include <array>
+#include <iomanip>
+#include <iostream>
 
 namespace {
-  using WMS::Step;
-  const char* get_type_name(const Step& step)
-  {
-    using Type = Step::Type;
-    switch (step.get_type()) {
-      case Step::Type::invalid: return "invalid";
-      case Type::empty: return "empty";
-      case Type::fill: return "fill";
-      case Type::heat: return "heat";
-      case Type::wash: return "wash";
-      case Type::rinse: return "rinse";
-      case Type::spin: return "spin";
-      case Type::dry: return "dry";
-      case Type::complete: return "complete";
-    }
-    return "UNKNOWN";
-  };
+
+constexpr std::array string_map{"invalid", "empty", "fill", "heat",    "wash",
+                                "rinse",   "spin",  "dry",  "complete"};
+
+const char *get_type_name(const WMS::Step &step) {
+  return string_map[unsigned(step.get_type())];
+};
+
+void print_step_details(WMS::Step &step) {
+  std::cout << std::fixed << std::setprecision(2);
+  std::cout << "Step '" << get_type_name(step) << "' "
+            << "running for " << (step.get_duration() / 1000.0) << " seconds\n";
 }
+
+} // namespace
 
 namespace WMS {
 
-bool WashProgramme::add(Step& step)
-{
-  if (next == std::end(steps)) {
+bool WashProgramme::add(Step &step) {
+  // If the array is not full and the step is valid, add it to the array
+  if (next == std::end(steps) || !step.is_valid()) {
     return false;
   }
   *next = &step;
@@ -40,13 +37,11 @@ bool WashProgramme::add(Step& step)
   return true;
 }
 
-void WashProgramme::run()
-{
+#if 1
+void WashProgramme::run() {
   for (auto step : steps) {
-    if (step) {
-      std::cout << std::fixed << std::setprecision(2);
-      std::cout << "Step '" << get_type_name(*step) << "' "
-                << "running for " << (step->get_duration() / 1000.0) << " seconds\n";
+    if (step) { // Check for nullptr array members
+      print_step_details(*step);
       if (display) {
         display->display(unsigned(step->get_type()));
       }
@@ -54,11 +49,24 @@ void WashProgramme::run()
     }
   }
 }
+#else
+// Alternative implementation using iterators
+// This does not need to check for nullptrs
+void WashProgramme::run() {
+  for (auto step = std::begin(steps); step != next; ++step) {
+    Step &current_step = **step;
+    print_step_details(current_step);
+    if (display) {
+      display->display(unsigned(current_step.get_type()));
+    }
+    current_step.run();
+  }
+}
 
-void connect(WashProgramme& wash, Devices::OutputDevice& output)
-{
+#endif
+
+void connect(WashProgramme &wash, Devices::OutputDevice &output) {
   wash.display = &output;
 }
 
-
-} // namespace Application
+} // namespace WMS

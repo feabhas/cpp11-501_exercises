@@ -9,8 +9,6 @@
 namespace WMS {
 
 Step::Step(Type step_type, uint32_t step_length)
-: type {step_type} , duration {step_length}
-{
-}
+    : type{step_type}, duration{step_length} {}
 
-} // namespace
+} // namespace WMS
