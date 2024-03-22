@@ -15,9 +15,8 @@
 static constexpr unsigned init_size{12};
 
 namespace {
-constexpr std::array string_map[] = {"invalid", "empty", "fill",
-                                     "heat",    "wash",  "rinse",
-                                     "spin",    "dry",   "complete"};
+constexpr std::array string_map{"invalid", "empty", "fill", "heat",    "wash",
+                                "rinse",   "spin",  "dry",  "complete"};
 
 const char *get_type_name(const WMS::Step &step) {
   return string_map[unsigned(step.get_type())];
