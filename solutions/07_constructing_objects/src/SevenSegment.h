@@ -12,6 +12,6 @@ void seven_segment_init();
 void seven_segment_display(unsigned val);
 void seven_segment_blank();
 
-} // namespace
+} // namespace Devices
 
 #endif // SEVENSEGMENT_H_

@@ -11,15 +11,15 @@ class GPIO;
 
 class SevenSegment {
 public:
-  SevenSegment(GPIO& gpio);
+  SevenSegment(GPIO &gpio);
   ~SevenSegment();
   void display(unsigned int value);
   void blank();
 
 private:
-  GPIO* port;
+  GPIO *port;
 };
 
-} // namespace WMS
+} // namespace Devices
 
 #endif // SEVENSEGMENT_H_

@@ -13,18 +13,17 @@
 
 using WMS::Step;
 
-int main()
-{
-  Devices::GPIO gpiod {STM32F407::AHB1_Device::GPIO_D};
+int main() {
+  Devices::GPIO gpiod{STM32F407::AHB1_Device::GPIO_D};
 
-  Devices::SevenSegment sseg {gpiod};
+  Devices::SevenSegment sseg{gpiod};
   for (unsigned i = 0; i < 10; ++i) {
     sseg.display(i);
     sleep(1000);
   }
   sseg.blank();
 
-  Devices::Motor motor {gpiod};
+  Devices::Motor motor{gpiod};
   for (unsigned i = 0; i < 5; ++i) {
     motor.on();
     sleep(1000);

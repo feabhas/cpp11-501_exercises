@@ -4,8 +4,7 @@
 
 #include <iostream>
 
-int main()
-{
+int main() {
   std::cout << "sizeof(bool):\t" << sizeof(bool) << '\n';
   std::cout << "sizeof(char):\t" << sizeof(char) << '\n';
   std::cout << "sizeof(short):\t" << sizeof(short) << '\n';
@@ -17,7 +16,7 @@ int main()
   std::cout << "sizeof(double):\t" << sizeof(double) << '\n';
   std::cout << "sizeof(long double):\t" << sizeof(long double) << '\n';
 
-  std::cout << "sizeof(void*):\t" << sizeof(void*) << '\n';
+  std::cout << "sizeof(void*):\t" << sizeof(void *) << '\n';
 
   std::cout << '\n'; // force fflush
 }

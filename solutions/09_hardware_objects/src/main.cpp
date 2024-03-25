@@ -9,9 +9,8 @@
 
 enum class SevenSegments { A = 8, B, C, D };
 
-int main()
-{
-  static Devices::GPIO gpiod {STM32F407::AHB1_Device::GPIO_D};
+int main() {
+  static Devices::GPIO gpiod{STM32F407::AHB1_Device::GPIO_D};
 
   gpiod.set_output(unsigned(SevenSegments::A));
   gpiod.set_output(unsigned(SevenSegments::B));

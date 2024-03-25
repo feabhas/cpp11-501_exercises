@@ -2,14 +2,13 @@
 // See project README.md for disclaimer and additional information.
 // Feabhas Ltd
 
-#include "Peripherals.h"
 #include "GPIO_C.h"
 #include "Motor.h"
+#include "Peripherals.h"
 #include "SevenSegment.h"
 #include "Timer.h"
 
-int main()
-{
+int main() {
   STM32F407::enable(STM32F407::AHB1_Device::GPIO_D);
 
   Devices::seven_segment_init();

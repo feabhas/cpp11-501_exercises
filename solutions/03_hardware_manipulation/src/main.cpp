@@ -6,18 +6,20 @@
 #include "Timer.h"       // sleep
 #include <cstdint>
 
-constexpr uintptr_t GPIOD_base { 0x4002'0C00u };
+constexpr uintptr_t GPIOD_base{0x4002'0C00u};
 
-static volatile uint32_t *const GPIOD_moder = reinterpret_cast<uint32_t*>(GPIOD_base);
-static volatile uint32_t *const GPIOD_odr = reinterpret_cast<uint32_t*>(GPIOD_base + 0x14u);
-static volatile const uint32_t *const GPIOD_idr = reinterpret_cast<uint32_t*>(GPIOD_base + 0x10u);
+static volatile uint32_t *const GPIOD_moder =
+    reinterpret_cast<uint32_t *>(GPIOD_base);
+static volatile uint32_t *const GPIOD_odr =
+    reinterpret_cast<uint32_t *>(GPIOD_base + 0x14u);
+static volatile const uint32_t *const GPIOD_idr =
+    reinterpret_cast<uint32_t *>(GPIOD_base + 0x10u);
 
 enum class LED { D6 = 8, D5, D4, D3 };
 enum class SevenSegments { A = 8, B, C, D };
 enum class Motor { on = 12, dir };
 
-int main()
-{
+int main() {
   STM32F407::enable(STM32F407::AHB1_Device::GPIO_D);
 
   // Enable Pin 8 for output
@@ -28,10 +30,10 @@ int main()
   //   *GPIOD_moder &= ~(0b11u << unsigned(LED::D6) * 2); // C++17
   //   *GPIOD_moder |= (0b01u << unsigned(LED::D6) * 2);
   // (3) C++20 compilant code is also most efficient
-  uint32_t moder = *GPIOD_moder;                   // read register
-  moder &= ~(0b11u << unsigned(LED::D6) * 2);      // clear bits of interest
-  moder |= (0b01u << unsigned(LED::D6) * 2);       // set bits
-  *GPIOD_moder = moder;                            // write back to register
+  uint32_t moder = *GPIOD_moder;              // read register
+  moder &= ~(0b11u << unsigned(LED::D6) * 2); // clear bits of interest
+  moder |= (0b01u << unsigned(LED::D6) * 2);  // set bits
+  *GPIOD_moder = moder;                       // write back to register
 
   // Toggle LED
   for (int i = 0; i < 5; ++i) {
@@ -41,7 +43,7 @@ int main()
     *GPIOD_odr = outr;
     sleep(500);
     // Turn off
-    *GPIOD_odr &= ~(0b1u << unsigned(LED::D6));       // C++20 warning
+    *GPIOD_odr &= ~(0b1u << unsigned(LED::D6)); // C++20 warning
     sleep(500);
   }
 
@@ -60,15 +62,17 @@ int main()
     *GPIOD_odr = outr;
     sleep(500);
     // turn motor off
-    *GPIOD_odr &= ~(0b1u << unsigned(Motor::on));     // C++20 warning
+    *GPIOD_odr &= ~(0b1u << unsigned(Motor::on)); // C++20 warning
     sleep(500);
   }
 
   // Set Seven Segment output bits in Mode Register
   // (1)  Terse example
   moder = *GPIOD_moder;
-  moder &= ~(0xFFu << unsigned(SevenSegments::A) * 2); // clear PD.8..PD.11 modes
-  moder |= (0x55u << unsigned(SevenSegments::A) * 2);  // set PD.8..PD.11 as output
+  moder &=
+      ~(0xFFu << unsigned(SevenSegments::A) * 2); // clear PD.8..PD.11 modes
+  moder |=
+      (0x55u << unsigned(SevenSegments::A) * 2); // set PD.8..PD.11 as output
   *GPIOD_moder = moder;
 
   // (2) Explicit example

@@ -13,8 +13,15 @@ namespace WMS {
 class Step {
 public:
   enum class Type {
-    invalid, empty, fill, heat,
-    wash, rinse, spin, dry, complete
+    invalid,
+    empty,
+    fill,
+    heat,
+    wash,
+    rinse,
+    spin,
+    dry,
+    complete
   };
 
   Step() = default;
@@ -25,12 +32,12 @@ public:
   bool is_valid() const { return type != Type::invalid; }
 
 private:
-  const char* get_type_name() const;
+  const char *get_type_name() const;
 
-  Type type {};
-  uint32_t duration {};
+  Type type{};
+  uint32_t duration{};
 };
 
-} // namespace
+} // namespace WMS
 
 #endif // STEP_H_

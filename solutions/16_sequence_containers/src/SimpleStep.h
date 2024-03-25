@@ -6,19 +6,18 @@
 #ifndef SIMPLESTEP_H
 #define SIMPLESTEP_H
 
-#include <cstdint>
 #include "Step.h"
+#include <cstdint>
 
 namespace WMS {
 
 class SimpleStep : public Step {
 public:
-  SimpleStep() = default;
   explicit SimpleStep(Type step_type, uint32_t step_length);
-
+  ~SimpleStep() override = default;
   void run() override;
 };
 
-} // namespace
+} // namespace WMS
 
 #endif // SIMPLESTEP_H_

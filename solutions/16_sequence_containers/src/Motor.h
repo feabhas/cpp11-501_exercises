@@ -11,7 +11,7 @@ class GPIO;
 
 class Motor {
 public:
-  Motor(GPIO& gpiod);
+  Motor(GPIO &gpiod);
   ~Motor();
 
   void on();
@@ -19,9 +19,9 @@ public:
   void change_direction();
 
 private:
-  GPIO* port;
+  GPIO *port;
 };
 
-} // namespace WMS
+} // namespace Devices
 
 #endif // MOTOR_H_

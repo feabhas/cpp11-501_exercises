@@ -13,6 +13,6 @@ void motor_on();
 void motor_off();
 void motor_change_direction();
 
-} // namespace
+} // namespace Devices
 
 #endif // MOTOR_H_

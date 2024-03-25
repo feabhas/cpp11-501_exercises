@@ -9,12 +9,11 @@
 
 using WMS::Step;
 
-int main()
-{
-  Devices::GPIO gpiod {STM32F407::AHB1_Device::GPIO_D};
-  Devices::SevenSegment sseg {gpiod};
+int main() {
+  Devices::GPIO gpiod{STM32F407::AHB1_Device::GPIO_D};
+  Devices::SevenSegment sseg{gpiod};
 
-  WMS::WashProgramme white_wash {};
+  WMS::WashProgramme white_wash{};
 
   white_wash.add(Step::Type::empty, 500);
   white_wash.add(Step::Type::fill, 1000);
@@ -25,6 +24,6 @@ int main()
   white_wash.add(Step::Type::dry, 2400);
   white_wash.add(Step::Type::complete, 500);
 
-  connect (white_wash, sseg);
+  connect(white_wash, sseg);
   white_wash.run();
 }

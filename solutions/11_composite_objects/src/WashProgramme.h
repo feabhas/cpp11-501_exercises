@@ -22,17 +22,17 @@ public:
   void run();
 
 private:
-  friend void connect(WashProgramme& wash, Devices::SevenSegment& sseg);
+  friend void connect(WashProgramme &wash, Devices::SevenSegment &sseg);
 
-  constexpr static unsigned wash_size {12};
+  constexpr static unsigned wash_size{16};
   using Container = std::array<Step, wash_size>;
 
-  Container steps {};
-  Container::iterator next {std::begin(steps)};
+  Container steps{};
+  Container::iterator next{std::begin(steps)};
 
-  Devices::SevenSegment* display;
+  Devices::SevenSegment *display{};
 };
 
-} // namespace Application
+} // namespace WMS
 
 #endif // WASHPROGRAMME_H_

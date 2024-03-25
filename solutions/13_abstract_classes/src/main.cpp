@@ -3,36 +3,35 @@
 // Feabhas Ltd
 
 #include "GPIO.h"
-#include "SevenSegment.h"
 #include "Motor.h"
-#include "SimpleStep.h"
-#include "WashStep.h"
-#include "SpinStep.h"
 #include "RinseStep.h"
+#include "SevenSegment.h"
+#include "SimpleStep.h"
+#include "SpinStep.h"
 #include "WashProgramme.h"
+#include "WashStep.h"
 
-using WMS::Step;
-using WMS::SimpleStep;
-using WMS::WashStep;
-using WMS::SpinStep;
 using WMS::RinseStep;
+using WMS::SimpleStep;
+using WMS::SpinStep;
+using WMS::Step;
+using WMS::WashStep;
 
-int main()
-{
-  Devices::GPIO gpiod {STM32F407::AHB1_Device::GPIO_D};
-  Devices::SevenSegment sseg {gpiod};
-  Devices::Motor motor {gpiod};
+int main() {
+  Devices::GPIO gpiod{STM32F407::AHB1_Device::GPIO_D};
+  Devices::SevenSegment sseg{gpiod};
+  Devices::Motor motor{gpiod};
 
-  SimpleStep fill {Step::Type::fill, 1000};
-  SimpleStep heat {Step::Type::heat, 2000};
-  WashStep wash {Step::Type::wash, 2500, motor};
-  RinseStep rinse {Step::Type::rinse, 2000, motor};
-  SpinStep spin {Step::Type::spin, 3000, motor};
-  SimpleStep dry {Step::Type::dry, 2400};
-  SimpleStep complete {Step::Type::complete, 500};
-  SimpleStep empty {Step::Type::empty, 500};
+  SimpleStep fill{Step::Type::fill, 1000};
+  SimpleStep heat{Step::Type::heat, 2000};
+  WashStep wash{Step::Type::wash, 2500, motor};
+  RinseStep rinse{Step::Type::rinse, 2000, motor};
+  SpinStep spin{Step::Type::spin, 3000, motor};
+  SimpleStep dry{Step::Type::dry, 2400};
+  SimpleStep complete{Step::Type::complete, 500};
+  SimpleStep empty{Step::Type::empty, 500};
 
-  WMS::WashProgramme white_wash {};
+  WMS::WashProgramme white_wash{};
 
   white_wash.add(fill);
   white_wash.add(heat);
@@ -43,6 +42,6 @@ int main()
   white_wash.add(dry);
   white_wash.add(complete);
 
-  connect (white_wash, sseg);
+  connect(white_wash, sseg);
   white_wash.run();
 }

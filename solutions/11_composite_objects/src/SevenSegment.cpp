@@ -9,9 +9,9 @@ namespace Devices {
 
 enum class Pins { A = 8, B, C, D };
 
-SevenSegment::SevenSegment(GPIO& gpio)
-: port {&gpio}
-{
+constexpr auto mask{0b11'11u << unsigned(Pins::A)};
+
+SevenSegment::SevenSegment(GPIO &gpio) : port{&gpio} {
   gpio.set_output(unsigned(Pins::A));
   gpio.set_output(unsigned(Pins::B));
   gpio.set_output(unsigned(Pins::C));
@@ -19,21 +19,13 @@ SevenSegment::SevenSegment(GPIO& gpio)
   blank();
 }
 
-SevenSegment::~SevenSegment()
-{
-  blank();
+SevenSegment::~SevenSegment() { blank(); }
+
+void SevenSegment::blank() { port->set(mask); }
+
+void SevenSegment::display(unsigned value) {
+  port->clear(mask);
+  port->set((value << unsigned(Pins::A)) & mask);
 }
 
-void SevenSegment::blank()
-{
-  port->set(0b11'11u << unsigned(Pins::A));
-}
-
-void SevenSegment::display(unsigned value)
-{
-  port->clear(0b11'11u << unsigned(Pins::A));
-  port->set((value&0xFu) << unsigned(Pins::A));
-}
-
-
-} // namespace
+} // namespace Devices
