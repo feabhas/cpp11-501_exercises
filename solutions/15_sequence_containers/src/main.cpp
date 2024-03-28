@@ -19,19 +19,12 @@ using WMS::SpinStep;
 using WMS::Step;
 using WMS::WashStep;
 
-namespace {
-std::unique_ptr<Devices::OutputDevice> make_7_segment(Devices::GPIO &port) {
-  return std::make_unique<Devices::SevenSegment>(port);
-}
-
-[[maybe_unused]] std::unique_ptr<Devices::OutputDevice> make_console() {
-  return std::make_unique<Devices::Console>();
-}
-} // namespace
 
 int main() {
   Devices::GPIO gpiod{STM32F407::AHB1_Device::GPIO_D};
   Devices::Motor motor{gpiod};
+  Devices::SevenSegment sseg{gpiod};
+  
 
   SimpleStep fill{Step::Type::fill, 1000};
   SimpleStep heat{Step::Type::heat, 2000};
@@ -53,11 +46,10 @@ int main() {
   white_wash.add(dry);
   white_wash.add(complete);
 
-  auto sseg = make_7_segment(gpiod);
-  connect(white_wash, *sseg.get());
+  connect(white_wash, sseg);
   white_wash.run();
 
   WMS::WashProgramme spin_cycle{&empty, &spin, &dry, &complete};
-  connect(spin_cycle, *sseg.get());
+  connect(spin_cycle, sseg);
   spin_cycle.run();
 }
