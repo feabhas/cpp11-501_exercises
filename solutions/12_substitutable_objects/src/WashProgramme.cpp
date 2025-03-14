@@ -17,52 +17,52 @@ const char *get_type_name(const WMS::Step &step) {
   return string_map[unsigned(step.get_type())];
 };
 
-void print_step_details(const WMS::Step &step) {
+void print_step_details(WMS::Step &step) {
   std::cout << std::fixed << std::setprecision(2);
   std::cout << "Step '" << get_type_name(step) << "' "
             << "running for " << (step.get_duration() / 1000.0) << " seconds\n";
 }
+
 } // namespace
 
 namespace WMS {
 
 bool WashProgramme::add(Step &step) {
-  // if the array is not full, only add valid steps
+  // If the array is not full and the step is valid, add it to the array
   if (next == std::end(steps) || !step.is_valid()) {
     return false;
   }
-  *next = step;
+  *next = &step;
   ++next;
   return true;
 }
 
 #if 1
 void WashProgramme::run() {
-  for (auto &step : steps) {
-    if (step.is_valid()) {
-      print_step_details(step);
+  for (auto step : steps) { // could be auto* step - very much a matter of style
+    if (step) {             // Check for nullptr array members
+      print_step_details(*step);
       if (display) {
-        display->display(unsigned(step.get_type()));
+        display->display(unsigned(step->get_type()));
       }
-      step.run();
+      step->run();
     }
   }
 }
 #else
-// The run() method now uses the iterator 'next' to determine the end of the
-// steps array (called the sential value). This means that the array can be
-// partially filled and the programme will only run the steps that have been
-// added. Also we don;t have to check if the step is valid as we know that the
-// array is only partially filled with valid steps.
+// Alternative implementation using iterators
+// This does not need to check for nullptrs
 void WashProgramme::run() {
   for (auto step = std::begin(steps); step != next; ++step) {
-    print_step_details(*step);
+    Step &current_step = **step;
+    print_step_details(current_step);
     if (display) {
-      display->display(unsigned(step->get_type()));
+      display->display(unsigned(current_step.get_type()));
     }
-    step->run();
+    current_step.run();
   }
 }
+
 #endif
 
 void connect(WashProgramme &wash, Devices::SevenSegment &sseg) {
